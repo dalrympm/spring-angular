@@ -2,3 +2,6 @@
 .idea/
 build/
 *.iml
+*.ipr
+*.iws
+.DS_Store

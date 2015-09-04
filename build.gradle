@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
         classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+        classpath 'org.springframework:springloaded:1.2.4.RELEASE'
     }
 }
 
@@ -29,11 +30,19 @@ repositories {
 
 
 dependencies {
+    compile('org.codehaus.groovy:groovy:2.4.4')
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
