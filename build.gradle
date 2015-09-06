@@ -30,9 +30,9 @@ repositories {
 
 
 dependencies {
-    compile('org.codehaus.groovy:groovy:2.4.4')
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.codehaus.groovy:groovy")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
