@@ -13,8 +13,16 @@ angular.module('hello', [ 'ngRoute' ])
 
     })
     .controller('home', function($scope, $http) {
-        $http.get('/resource/').success(function(data) {
-            $scope.greeting = data;
+        $http.get('token').success(function(token) {
+            $http({
+                url : 'http://localhost:9000',
+                method : 'GET',
+                headers : {
+                    'X-Auth-Token' : token.token
+                }
+            }).success(function(data) {
+                $scope.greeting = data;
+            });
         })
     })
     .controller('navigation', function($rootScope, $scope, $http, $location) {

@@ -10,9 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.csrf.CsrfFilter
 import org.springframework.security.web.csrf.CsrfTokenRepository
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+import javax.servlet.http.HttpSession
 import java.security.Principal
 
 /**
@@ -23,15 +25,16 @@ import java.security.Principal
  */
 @SpringBootApplication
 @RestController
+@EnableRedisHttpSession
 class UiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args)
     }
 
-    @RequestMapping('/resource')
-    def home() {
-        [id: UUID.randomUUID().toString(), content: "Hiya Worlds"]
+    @RequestMapping("/token")
+    def token(HttpSession session) {
+        ["token": session.id]
     }
 
     @RequestMapping("/user")
