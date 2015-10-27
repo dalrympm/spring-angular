@@ -12,23 +12,13 @@ angular.module('hello', [ 'ngRoute' ])
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     })
-    .controller('home', function($scope, $http) {
-        $http.get('token').success(function(token) {
-            $http({
-                url : 'http://localhost:9000',
-                method : 'GET',
-                headers : {
-                    'X-Auth-Token' : token.token
-                }
-            }).success(function(data) {
-                $scope.greeting = data;
-            });
-        })
-    })
-    .controller('navigation', function($rootScope, $scope, $http, $location) {
+    .controller('navigation', function($rootScope, $scope, $http, $location, $route) {
+
+        $scope.tab = function(route) {
+            return $route.current && route === $route.current.controller;
+        };
 
         var authenticate = function(credentials, callback) {
-
             var headers = credentials ? {authorization : "Basic "
             + btoa(credentials.username + ":" + credentials.password)
             } : {};
@@ -53,9 +43,11 @@ angular.module('hello', [ 'ngRoute' ])
                 if ($rootScope.authenticated) {
                     $location.path("/");
                     $scope.error = false;
+				$rootScope.authenticated = true;
                 } else {
                     $location.path("/login");
                     $scope.error = true;
+				$rootScope.authenticated = false;
                 }
             });
         };
@@ -67,4 +59,9 @@ angular.module('hello', [ 'ngRoute' ])
                 $rootScope.authenticated = false;
             });
         }
+	})
+    .controller('home', function($scope, $http) {
+        $http.get('resource/').success(function(data) {
+            $scope.greeting = data;
+        })
     });
