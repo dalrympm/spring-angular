@@ -1,4 +1,10 @@
 server:
   port: 9000
+
 security:
   sessions: NEVER
+
+spring:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:9999/uaa/user

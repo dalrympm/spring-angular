@@ -1,2 +1,4 @@
 include 'ui'
 include 'resource'
+include 'auth'
+
